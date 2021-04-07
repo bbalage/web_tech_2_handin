@@ -1,0 +1,13 @@
+Data structure for city:
+{
+  name: "Budapest",
+  population: 3300000,
+  area: 12000,
+  foundation: 1820.01.01,
+  country: "Hungary",
+  description: "Some description.",
+  tags: [
+    {name: "tagname", style: "red"},
+    ...
+  ]
+}
