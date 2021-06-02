@@ -3,13 +3,14 @@ const app = express();
 const mongoUrl ="mongodb://localhost:27017/n5if3vdb";
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const authorRouter = require('./routes/author.route');
 
 app.use(express.json());
 
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
-db.on('open', console.log.bind(console, "Database connected."));
+db.once('open', console.log.bind(console, "Database connected."));
 
 const ProductSchema = new Schema({
     name: {type: String},
@@ -19,11 +20,13 @@ const ProductSchema = new Schema({
 var ProductModel = mongoose.model('products', ProductSchema);
 console.log(ProductModel);
 
-app.get('/hello', function (req, res) {
+app.use('/author', authorRouter);
+
+app.get('/api/hello', function (req, res) {
     res.send('Hello World!');
 })
 
-app.post('/add-product', function (req, res) {
+app.post('/api/add-product', function (req, res) {
     console.log("Request body: "+req.body.name);
     addedProduct = new ProductModel(req.body);
     addedProduct.save(function (err, data) {
@@ -36,7 +39,7 @@ app.post('/add-product', function (req, res) {
     })
 })
 
-server = app.listen(4000, function () {
+server = app.listen(3000, function () {
     let host = server.address().address;
     let port = server.address().port;
 

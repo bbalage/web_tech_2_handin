@@ -11,3 +11,41 @@ Data structure for city:
     ...
   ]
 }
+
+Könyvkiadó számára menedzsment alkalmazás
+Data structures:
+
+Admin:
+{
+  name: string,
+  email: string (unique),
+  password: string
+}
+
+Author:
+{
+  name: string,
+  email: string,
+  phoneNumber: string
+  books: [
+    ref: objectId
+  ]
+}
+Book:
+{
+  title: string,
+  dateOfPublish: date,
+  price: number,
+  copiesCreated: number,
+  copiesSold: number,
+  description: string,
+  genres: [
+    string, string...
+  ],
+  reviews: [
+    {
+      reviewer: string,
+      review: string
+    }
+  ]
+}
