@@ -1,16 +1,22 @@
-const express = require('express')
-const router = express.Router()
+const express = require('express');
+
+const router = express.Router();
+
+const auth = require('../util/auth');
+
+router.use(auth.checkIfAuthenticated, auth.convertErrorToUnauthorized);
+
 const AuthorModel = require('../model/author');
 
 router.get('/', function (req, res) {
-  AuthorModel.find((err, authors) => {
-      if (err) throw err;
-      res.json(authors);
-  });
+    AuthorModel.find((err, authors) => {
+        if (err) throw err;
+        res.json(authors);
+    });
 })
 
 router.get('/hello-world', function (req, res) {
-  res.send('Hello World!');
+    res.send('Hello World!');
 })
 
 router.get('/hello', function (req, res) {
@@ -18,7 +24,6 @@ router.get('/hello', function (req, res) {
 })
 
 router.post('/', function (req, res) {
-    console.log("Request body: "+req.body);
     newAuthor = new AuthorModel(req.body);
     newAuthor.save(function (err, data) {
         if (err) {
@@ -28,6 +33,6 @@ router.post('/', function (req, res) {
             res.json(data);
         }
     });
-})
+});
 
 module.exports = router
