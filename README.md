@@ -6,13 +6,15 @@ This is the repository for the Web Technologies 2 university course.
 
 Here I describe how to start and use the application.
 
+**Note on public and private keys**: I included both the public and private keys with the repository for convinience reasons. This way they don't have to generated to test the application offline. Obviously, this is not a secure solution. If this application (which is a school hand-in after all) happens to go online, the keys at least have to be generated again.
+
 ## Project description
 
 The application and its purpose is described here.
 
 The application is a simple administration tool for a book publisher. The structures in the database are:
 
-- **Admin**: To login in order to manage the rest of the structes.
+- **Admin**: To login in order to manage the rest of the structures.
 - **Author**: Of one or more published book(s). 
 - **Book**: Book published by this publisher.
 - **Review**: A review that was written by someone about one of the books.
