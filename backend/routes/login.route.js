@@ -6,7 +6,7 @@ const RSA_PRIVATE_KEY = fs.readFileSync('./keys/jwtRS256.key');
 
 const router = express.Router()
 
-const bearerExpirationTimeHours = '2';
+const bearerExpirationTimeSeconds = '7200';
 
 router.post('/', function (req, res) {
     const email = req.body.email;
@@ -16,13 +16,13 @@ router.post('/', function (req, res) {
 
         const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
             algorithm: 'RS256',
-            expiresIn: bearerExpirationTimeHours + 'h',
+            expiresIn: bearerExpirationTimeSeconds,
             subject: userId
         });
 
         res.status(200).json({
             idToken: jwtBearerToken,
-            expiresIn: bearerExpirationTimeHours
+            expiresIn: bearerExpirationTimeSeconds
         })
     }
     else {
