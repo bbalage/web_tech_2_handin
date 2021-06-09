@@ -13,8 +13,8 @@ const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.once('open', console.log.bind(console, "Database connected."));
 
-app.use('/author', authorRouter);
-app.use('/login', loginRouter);
+app.use('/api/author', authorRouter);
+app.use('/api/login', loginRouter);
 
 server = app.listen(3000, function () {
     let host = server.address().address;

@@ -15,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   login(email: string, password: string) {
-    return this.http.post<User>('/login/', { email, password })
+    return this.http.post<User>('/api/login/', { email, password })
       .pipe(
         map(res => this.setSession(res),
           shareReplay()
@@ -23,8 +23,8 @@ export class AuthService {
   }
 
   private setSession(authResult: any) {
-    const expiresAtMilliseconds = Date.now() + authResult.expiresIn * 1000;
-    const expiresAt = new Date(expiresAtMilliseconds);
+    const now = new Date();
+    const expiresAt = now.setSeconds(now.getSeconds() + authResult.expiresIn * 1000);
 
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt));
