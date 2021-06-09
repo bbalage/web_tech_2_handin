@@ -17,9 +17,10 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthorComponent } from './author/author.component';
 import { HomeComponent } from './home/home.component';
+import { AuthInterceptor } from './utils/auth-interceptor';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,7 @@ import { HomeComponent } from './home/home.component';
     MatCardModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -19,10 +19,6 @@ router.get('/hello-world', function (req, res) {
     res.send('Hello World!');
 })
 
-router.get('/hello', function (req, res) {
-    res.send('Hello!');
-})
-
 router.post('/', function (req, res) {
     newAuthor = new AuthorModel(req.body);
     newAuthor.save(function (err, data) {

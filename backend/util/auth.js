@@ -12,6 +12,9 @@ function convertErrorToUnauthorized(err, req, res, next) {
     if (err.name === 'UnauthorizedError') {
         res.status(401).send('invalid token...');
     }
+    else {
+        console.log("Error was not unauthorized.");
+    }
 };
 
 const auth = {
