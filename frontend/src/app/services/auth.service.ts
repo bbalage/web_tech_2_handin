@@ -1,5 +1,5 @@
 import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { shareReplay, map } from 'rxjs/operators';
 
 interface User {
@@ -13,6 +13,11 @@ interface User {
 export class AuthService {
 
   constructor(private http: HttpClient) { }
+
+  cleanLocalStorage() {
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("expires_at");
+  }
 
   login(email: string, password: string) {
     return this.http.post<User>('/api/login/', { email, password })
@@ -42,6 +47,10 @@ export class AuthService {
     return new Date() < expiration;
   }
 
+  isNotLoggedIn(): boolean {
+    return !this.isLoggedIn();
+  }
+
   getExpiration(): Date | null {
     const expiration = localStorage.getItem("expires_at");
     if (!expiration) {
@@ -49,5 +58,9 @@ export class AuthService {
     }
     const expiresAt = JSON.parse(expiration);
     return expiresAt;
+  }
+
+  logout() {
+    this.cleanLocalStorage();
   }
 }
