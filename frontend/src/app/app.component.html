@@ -1,7 +1,6 @@
 <div *ngIf="isUserLoggedIn(); then presentNavigationAndRouterOutlet else presentLogin"></div>
 <ng-template #presentNavigationAndRouterOutlet>
   <app-navigation></app-navigation>
-  <router-outlet></router-outlet>
 </ng-template>
 <ng-template #presentLogin>
   <app-login></app-login>
