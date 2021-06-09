@@ -6,7 +6,7 @@ const RSA_PRIVATE_KEY = fs.readFileSync('./keys/jwtRS256.key');
 
 const router = express.Router()
 
-const bearerExpirationTimeSeconds = '7200';
+const bearerExpirationTimeSeconds = 7200;
 
 router.post('/', function (req, res) {
     const email = req.body.email;
