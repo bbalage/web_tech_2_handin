@@ -1,3 +1,19 @@
+<mat-toolbar>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+        <span>Actions</span>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+            <mat-icon>search</mat-icon>
+            <span>Search</span>
+        </button>
+        <button mat-menu-item (click)="navigateToAddNewAuthor()">
+            <mat-icon>add</mat-icon>
+            <span>Add Author</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>
 <table mat-table [dataSource]="authors" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>

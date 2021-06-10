@@ -67,7 +67,7 @@ The application should be able to perform the following operations on the struct
 
 ### Author
 
-- [ ] List all authors
+- [x] List all authors
 - [ ] Find author by name
 - [ ] Add new author
 - [ ] Modify existing author

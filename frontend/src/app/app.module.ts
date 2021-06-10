@@ -22,6 +22,8 @@ import { AuthorComponent } from './author/author.component';
 import { HomeComponent } from './home/home.component';
 import { AuthInterceptor } from './utils/auth-interceptor';
 import { MatTableModule } from '@angular/material/table';
+import { MatMenuModule } from '@angular/material/menu';
+import { AddAuthorComponent } from './author/add-author/add-author.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,8 @@ import { MatTableModule } from '@angular/material/table';
     LoginComponent,
     NavigationComponent,
     AuthorComponent,
-    HomeComponent
+    HomeComponent,
+    AddAuthorComponent
   ],
   imports: [
     HttpClientModule,
@@ -47,6 +50,7 @@ import { MatTableModule } from '@angular/material/table';
     MatRadioModule,
     MatCardModule,
     MatTableModule,
+    MatMenuModule,
     ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

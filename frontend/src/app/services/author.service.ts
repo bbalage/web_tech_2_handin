@@ -10,9 +10,7 @@ export class AuthorService {
   constructor(private http: HttpClient) { }
 
   addAuthor(author: AuthorSendDto) {
-    this.http.post<AuthorSendDto>('/api/author', author).subscribe(
-      (res) => console.log("Author successfully saved: " + res)
-    );
+    return this.http.post<AuthorSendDto>('/api/author', author).toPromise();
   }
 
   getAuthors() {
