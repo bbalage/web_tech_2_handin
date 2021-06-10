@@ -24,6 +24,7 @@ import { AuthInterceptor } from './utils/auth-interceptor';
 import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { AddAuthorComponent } from './author/add-author/add-author.component';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,7 @@ import { AddAuthorComponent } from './author/add-author/add-author.component';
     MatCardModule,
     MatTableModule,
     MatMenuModule,
+    MatSnackBarModule,
     ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

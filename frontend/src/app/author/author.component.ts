@@ -1,5 +1,6 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { AuthorReceiveDto } from '../model/Author';
@@ -18,7 +19,8 @@ export class AuthorComponent implements OnInit {
   constructor(
     private authorService: AuthorService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
   ) { }
 
   async ngOnInit(): Promise<void> {
@@ -34,7 +36,12 @@ export class AuthorComponent implements OnInit {
         return false;
       })
     ).subscribe(params => {
-      console.log(params);
+      if (params.savedName) {
+        this.snackBarMessage(`Successfully saved author: ${params.savedName}`);
+      }
+      if (params.updatedName) {
+        this.snackBarMessage(`Successfully updated author: ${params.savedName}`);
+      }
     })
   }
 
@@ -44,6 +51,10 @@ export class AuthorComponent implements OnInit {
 
   navigateToAddNewAuthor() {
     this.router.navigateByUrl('author/add');
+  }
+
+  private snackBarMessage(message: string) {
+    this.snackBar.open(message, 'Dismiss');
   }
 
 }
