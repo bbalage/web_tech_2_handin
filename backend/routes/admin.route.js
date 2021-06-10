@@ -18,15 +18,17 @@ router.get('/', function (req, res) {
     });
 })
 
-router.get('/hello-world', function (req, res) {
-    res.send('Hello World!');
-})
-
 router.get('/self', function (req, res) {
     const adminId = auth.extractAdminId(req);
     console.log("adminId: " + adminId);
-    //AdminModel.findById(1);
-    res.send("Ok");
+    AdminModel.findById(adminId, 'name email', (err, admin) => {
+        if (err) {
+            throw err;
+        }
+        else {
+            res.json(admin);
+        }
+    });
 })
 
 module.exports = router
