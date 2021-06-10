@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 
 const authorRouter = require('./routes/author.route');
 const loginRouter = require('./routes/login.route');
+const adminRouter = require('./routes/admin.route');
 
 app.use(express.json());
 
@@ -15,6 +16,7 @@ db.once('open', console.log.bind(console, "Database connected."));
 
 app.use('/api/author', authorRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/admin', adminRouter);
 
 server = app.listen(3000, function () {
     let host = server.address().address;
