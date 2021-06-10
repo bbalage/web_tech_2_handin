@@ -29,16 +29,4 @@ router.get('/self', function (req, res) {
     res.send("Ok");
 })
 
-router.post('/', function (req, res) {
-    newAuthor = new AuthorModel(req.body);
-    newAuthor.save(function (err, data) {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            res.json(data);
-        }
-    });
-});
-
 module.exports = router
