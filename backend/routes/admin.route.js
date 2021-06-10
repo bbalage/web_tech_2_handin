@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const auth = require('../util/auth');
+const errorHandling = require('../util/error-handling');
 
 router.use(
     auth.checkIfAuthenticated,
@@ -13,17 +14,18 @@ const AdminModel = require('../model/admin');
 
 router.get('/', function (req, res) {
     AdminModel.find((err, admins) => {
-        if (err) throw err;
+        if (err) {
+            errorHandling.defaultErrorHandling(err, res);
+        }
         res.json(admins);
     });
 })
 
 router.get('/self', function (req, res) {
     const adminId = auth.extractAdminId(req);
-    console.log("adminId: " + adminId);
     AdminModel.findById(adminId, 'name email', (err, admin) => {
         if (err) {
-            throw err;
+            errorHandling.defaultErrorHandling(err, res);
         }
         else {
             res.json(admin);

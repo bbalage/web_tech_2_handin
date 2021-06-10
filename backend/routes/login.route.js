@@ -4,6 +4,8 @@ express = require('express');
 fs = require('fs');
 jwt = require('jsonwebtoken');
 
+const errorHandling = require('../util/error-handling');
+
 const RSA_PRIVATE_KEY = fs.readFileSync('./keys/jwtRS256.key');
 
 const router = express.Router()
@@ -15,7 +17,6 @@ router.post('/', async function (req, res) {
 
     if (await validateEmailAndPassword(email, req.body.password)) {
         const adminId = await findUserIdForEmail(email);
-        console.log("Admin id: " + adminId);
 
         const jwtBearerToken = jwt.sign({}, RSA_PRIVATE_KEY, {
             algorithm: 'RS256',

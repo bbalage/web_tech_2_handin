@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const auth = require('../util/auth');
+const errorHandling = require('../util/error-handling');
 
 const AdminModel = require('../model/admin');
 
@@ -19,7 +20,7 @@ function addDefaultAdmin(req, res) {
     const newAdminModel = new AdminModel(newAdminObject);
     newAdminModel.save(function (err, data) {
         if (err) {
-            console.log(err);
+            errorHandling.defaultErrorHandling(err, res);
         }
         else {
             res.json(data);
