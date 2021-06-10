@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthorReceiveDto } from '../model/Author';
 import { AuthorService } from '../services/author.service';
 
 @Component({
@@ -8,16 +9,19 @@ import { AuthorService } from '../services/author.service';
 })
 export class AuthorComponent implements OnInit {
 
+  authors: AuthorReceiveDto[] = [];
+  displayedColumns: string[] = ['name', 'email', 'phoneNumber'];
+
   constructor(
     private authorService: AuthorService
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.authors = await this.getAuthors();
   }
 
   async getAuthors() {
-    const authors = await this.authorService.getAuthors();
-    console.log("Authors: " + authors);
+    return await this.authorService.getAuthors();
   }
 
 }

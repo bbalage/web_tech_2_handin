@@ -21,6 +21,7 @@ import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common
 import { AuthorComponent } from './author/author.component';
 import { HomeComponent } from './home/home.component';
 import { AuthInterceptor } from './utils/auth-interceptor';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { AuthInterceptor } from './utils/auth-interceptor';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
+    MatTableModule,
     ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

@@ -12,8 +12,9 @@ export class AppComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    if (this.authService.isNotLoggedIn())
+    if (this.authService.isNotLoggedIn()) {
       this.authService.cleanLocalStorage();
+    }
   }
 
   isUserLoggedIn(): boolean {

@@ -29,7 +29,7 @@ export class AuthService {
 
   private setSession(authResult: any) {
     const now = new Date();
-    const expiresAt = now.setSeconds(now.getSeconds() + authResult.expiresIn * 1000);
+    const expiresAt: Date = new Date(now.setSeconds(now.getSeconds() + authResult.expiresIn));
 
     localStorage.setItem('id_token', authResult.idToken);
     localStorage.setItem("expires_at", JSON.stringify(expiresAt));
@@ -44,7 +44,8 @@ export class AuthService {
     if (!expiration) {
       throw Error("No expiration set for idToken");
     }
-    return new Date() < expiration;
+    const now = new Date();
+    return now < expiration;
   }
 
   isNotLoggedIn(): boolean {
@@ -56,7 +57,7 @@ export class AuthService {
     if (!expiration) {
       return null;
     }
-    const expiresAt = JSON.parse(expiration);
+    const expiresAt: Date = new Date(JSON.parse(expiration));
     return expiresAt;
   }
 
