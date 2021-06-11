@@ -45,7 +45,7 @@ router.put('/', function (req, res) {
     delete modifications._id;
 
     AuthorModel.findOneAndUpdate(
-        { _id: _id }, modifications, { upsert: false, useFindAndModify: true, new: true },
+        { _id: _id }, modifications, { upsert: false, useFindAndModify: false, new: true },
         (err, data) => {
             if (err) {
                 errorHandling.defaultErrorHandling(err, res);
@@ -55,6 +55,41 @@ router.put('/', function (req, res) {
             }
         })
 });
+
+router.put('/add-book', async function (req, res) {
+    const bookId = req.query.bookId;
+    const authorId = req.query.authorId;
+
+    const author = await findAuthorById(authorId);
+
+    if (!author) {
+        res.status(404).json({ message: "No author by that id" });
+        return;
+    }
+
+    if (author.books.includes(bookId)) {
+        res.status(400).json({ message: "That book is already associated with the author." });
+        return;
+    }
+
+    author.books.push(bookId);
+
+    AuthorModel.findOneAndUpdate(
+        { _id: author._id }, { books: author.books }, { upsert: false, useFindAndModify: false, new: true },
+        (err, data) => {
+            if (err) {
+                errorHandling.defaultErrorHandling(err, res);
+            }
+            else {
+                res.json(data);
+            }
+        })
+})
+
+async function findAuthorById(_id) {
+    author = await AuthorModel.findById(_id);
+    return author;
+}
 
 function findAuthorByIdAndSendInResponse(_id, res) {
     AuthorModel.findById(_id, (err, author) => {

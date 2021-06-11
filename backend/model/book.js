@@ -13,12 +13,6 @@ const BookSchema = new mongoose.Schema({
             reviewer: { type: String },
             review: { type: String }
         }
-    ],
-    authors: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Author'
-        }
     ]
 });
 
