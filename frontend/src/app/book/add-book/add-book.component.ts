@@ -1,14 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BookSendDto, Genres } from 'src/app/model/Book';
+import { BookSendDto, GenreCheckBox, Genres } from 'src/app/model/Book';
 import { BookService } from 'src/app/services/book.service';
 import { ThemePalette } from '@angular/material/core';
-
-interface GenreCheckBox {
-  genre: string,
-  chosen: boolean
-}
 
 @Component({
   selector: 'app-add-book',
@@ -35,7 +30,7 @@ export class AddBookComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    for (const genre in Genres) {
+    for (const genre of Object.values(Genres)) {
       this.genreCheckBoxes.push({ genre: genre, chosen: false });
     }
   }
@@ -43,8 +38,6 @@ export class AddBookComponent implements OnInit {
   addBook() {
     const newBook: BookSendDto = this.addBookForm.value;
     newBook.genres = this.getChosenGenres();
-    console.log(this.getChosenGenres())
-    console.log(newBook);
     this.bookService.addBook(newBook).then(value => {
       this.router.navigate([`book`], { queryParams: { savedTitle: value.title } });
     });

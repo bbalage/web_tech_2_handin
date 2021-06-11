@@ -9,12 +9,12 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
-  addBook(author: BookSendDto) {
-    return this.http.post<BookSendDto>('/api/book', author).toPromise();
+  addBook(book: BookSendDto) {
+    return this.http.post<BookSendDto>('/api/book', book).toPromise();
   }
 
-  modifyBook(author: BookSendDto) {
-    return this.http.put<BookSendDto>('/api/book', author).toPromise();
+  modifyBook(book: BookSendDto) {
+    return this.http.put<BookSendDto>('/api/book', book).toPromise();
   }
 
   getBooks() {

@@ -21,6 +21,23 @@ router.post('/', function (req, res) {
     });
 });
 
+router.put('/', function (req, res) {
+    const _id = req.body._id;
+    const modifications = req.body;
+    delete modifications._id;
+
+    BookModel.findOneAndUpdate(
+        { _id: _id }, modifications, { upsert: false, useFindAndModify: false, new: true },
+        (err, data) => {
+            if (err) {
+                errorHandling.defaultErrorHandling(err, res);
+            }
+            else {
+                res.json(data);
+            }
+        })
+});
+
 router.get('/', function (req, res) {
     const _id = req.query._id;
     if (_id) {
@@ -38,7 +55,7 @@ router.get('/', function (req, res) {
 async function findBookByIdAndSendInResponse(_id, res) {
     book = await BookModel.findById(_id);
     const bookSendDto = convertBookToSendBookDto(book);
-    return bookSendDto;
+    res.json(bookSendDto);
 }
 
 async function findBooksByTitleAndSendThemInResponse(title, res) {

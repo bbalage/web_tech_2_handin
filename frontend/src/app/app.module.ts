@@ -33,6 +33,7 @@ import { BookComponent } from './book/book.component';
 import { AddBookComponent } from './book/add-book/add-book.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BookSearchBarComponent } from './book/book-search-bar/book-search-bar.component';
+import { ModifyBookComponent } from './book/modify-book/modify-book.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { BookSearchBarComponent } from './book/book-search-bar/book-search-bar.c
     ModifyAuthorComponent,
     BookComponent,
     AddBookComponent,
-    BookSearchBarComponent
+    BookSearchBarComponent,
+    ModifyBookComponent
   ],
   imports: [
     HttpClientModule,

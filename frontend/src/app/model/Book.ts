@@ -23,5 +23,11 @@ export interface BookSendDto {
 
 export enum Genres {
     HORROR = "Horror", THRILLER = "Thriller", ACTION = "Action", FANTASY = "Fantasy",
-    ROMANTIC = "Romantic", SCIFI = "Science fiction", HISTORICAL = "Historical"
+    ROMANTIC = "Romantic", SCIFI = "Science fiction", HISTORICAL = "Historical",
+    YOUNG_ADULT = "Young adult"
+}
+
+export interface GenreCheckBox {
+    genre: string,
+    chosen: boolean
 }

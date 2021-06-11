@@ -81,7 +81,7 @@ export class BookComponent implements OnInit {
   }
 
   navigateToModifyBook(_id: string) {
-    //this.router.navigate(['author/modify', _id]);
+    this.router.navigate(['book/modify', _id]);
   }
 
   //TODO: TEMPORARY!!! Remove when all row menu items are functional!!!

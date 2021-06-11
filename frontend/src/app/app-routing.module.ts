@@ -5,6 +5,7 @@ import { AuthorComponent } from './author/author.component';
 import { ModifyAuthorComponent } from './author/modify-author/modify-author.component';
 import { AddBookComponent } from './book/add-book/add-book.component';
 import { BookComponent } from './book/book.component';
+import { ModifyBookComponent } from './book/modify-book/modify-book.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: 'book/add',
     component: AddBookComponent
+  },
+  {
+    path: 'book/modify/:_id',
+    component: ModifyBookComponent
   }
 ];
 
