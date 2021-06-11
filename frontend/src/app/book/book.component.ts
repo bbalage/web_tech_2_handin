@@ -53,7 +53,7 @@ export class BookComponent implements OnInit {
     this.snackBar.open(message, 'Dismiss');
   }
 
-  searchAuthor(title: string) {
+  searchBook(title: string) {
     console.log("Searched book: " + title);
     this.bookService.getBooksByTitle(title).then((value => {
       this.books = value;

@@ -35,16 +35,20 @@ router.get('/', function (req, res) {
     findAllBooksAndSendThemInResponse(res);
 });
 
-function findBookByIdAndSendInResponse(_id, res) {
-    res.send("Done");
+async function findBookByIdAndSendInResponse(_id, res) {
+    book = await BookModel.findById(_id);
+    const bookSendDto = convertBookToSendBookDto(book);
+    return bookSendDto;
 }
 
-function findBooksByTitleAndSendThemInResponse(title, res) {
-    res.send("Done");
+async function findBooksByTitleAndSendThemInResponse(title, res) {
+    const books = await BookModel.find({ title: { $regex: title } });
+    bookSendDtos = convertBooksToSendBookDtos(books);
+    res.json(bookSendDtos);
 }
 
 async function findBookById(_id) {
-    book = await BookModel.findById(_id);
+    const book = await BookModel.findById(_id);
     return book;
 }
 
@@ -57,11 +61,16 @@ async function findAllBooksAndSendThemInResponse(res) {
 function convertBooksToSendBookDtos(books) {
     bookSendDtos = [];
     for (const book of books) {
-        const bookSendDto = book;
-        bookSendDto.reviews = book.reviews.length;
+        const bookSendDto = convertBookToSendBookDto(book);
         bookSendDtos.push(bookSendDto);
     }
     return bookSendDtos;
+}
+
+function convertBookToSendBookDto(book) {
+    const bookSendDto = book;
+    bookSendDto.reviews = book.reviews.length;
+    return bookSendDto;
 }
 
 module.exports = router;
