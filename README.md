@@ -72,20 +72,20 @@ The application should be able to perform the following operations on the struct
 - [x] Add new author
 - [x] Modify existing author
 - [ ] Delete author
-- [ ] Add book for author
+- [x] Add book for author
+- [ ] Remove book from author
 
 ### Book
 
-- [ ] List all books, with the number of reviews
-- [ ] Find book by title
-- [ ] Add new book
-- [ ] Modify existing book
+- [x] List all books, with the number of reviews
+- [x] Find book by title
+- [x] Add new book
+- [x] Modify existing book
 - [ ] Delete book
 - [ ] Add reviews to book
 
 ### Admin
 
-- [ ] Login as default admin
+- [x] Login as default admin
+- [ ] Change admin attributes
 - [ ] Add new admin
-- [ ] Change existing admin
-- [ ] Delete admin
