@@ -46,7 +46,7 @@ export class BookComponent implements OnInit {
   }
 
   navigateToAddNewBook() {
-    //this.router.navigateByUrl('author/add');
+    this.router.navigateByUrl('book/add');
   }
 
   private snackBarMessage(message: string) {

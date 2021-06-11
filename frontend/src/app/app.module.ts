@@ -16,7 +16,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthorComponent } from './author/author.component';
 import { HomeComponent } from './home/home.component';
@@ -25,9 +25,13 @@ import { MatTableModule } from '@angular/material/table';
 import { MatMenuModule } from '@angular/material/menu';
 import { AddAuthorComponent } from './author/add-author/add-author.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { AuthorSearchBarComponent } from './author/author-search-bar/author-search-bar.component';
 import { ModifyAuthorComponent } from './author/modify-author/modify-author.component';
 import { BookComponent } from './book/book.component';
+import { AddBookComponent } from './book/add-book/add-book.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @NgModule({
   declarations: [
@@ -39,7 +43,8 @@ import { BookComponent } from './book/book.component';
     AddAuthorComponent,
     AuthorSearchBarComponent,
     ModifyAuthorComponent,
-    BookComponent
+    BookComponent,
+    AddBookComponent
   ],
   imports: [
     HttpClientModule,
@@ -59,6 +64,10 @@ import { BookComponent } from './book/book.component';
     MatTableModule,
     MatMenuModule,
     MatSnackBarModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatCheckboxModule,
+    FormsModule,
     ReactiveFormsModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],

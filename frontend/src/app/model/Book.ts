@@ -20,3 +20,8 @@ export interface BookSendDto {
     description: string,
     genres: string[]
 }
+
+export enum Genres {
+    HORROR = "Horror", THRILLER = "Thriller", ACTION = "Action", FANTASY = "Fantasy",
+    ROMANTIC = "Romantic", SCIFI = "Science fiction", HISTORICAL = "Historical"
+}
