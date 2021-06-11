@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthorReceiveDto, AuthorSendDto } from '../model/Author';
 
@@ -15,5 +15,9 @@ export class AuthorService {
 
   getAuthors() {
     return this.http.get<AuthorReceiveDto[]>('/api/author').toPromise();
+  }
+
+  getAuthorsByName(name: string) {
+    return this.http.get<AuthorReceiveDto[]>('/api/author', { params: { ['name']: [name] } }).toPromise();
   }
 }

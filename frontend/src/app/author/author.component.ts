@@ -15,6 +15,7 @@ export class AuthorComponent implements OnInit {
 
   authors: AuthorReceiveDto[] = [];
   displayedColumns: string[] = ['name', 'email', 'phoneNumber'];
+  searchBarOpenned: boolean = false;
 
   constructor(
     private authorService: AuthorService,
@@ -24,7 +25,7 @@ export class AuthorComponent implements OnInit {
   ) { }
 
   async ngOnInit(): Promise<void> {
-    this.authors = await this.getAuthors();
+    this.authors = await this.authorService.getAuthors();
     const queries: string[] = ['savedName', 'updatedName'];
     this.route.queryParams.pipe(
       filter(params => {
@@ -45,10 +46,6 @@ export class AuthorComponent implements OnInit {
     })
   }
 
-  async getAuthors() {
-    return await this.authorService.getAuthors();
-  }
-
   navigateToAddNewAuthor() {
     this.router.navigateByUrl('author/add');
   }
@@ -57,4 +54,30 @@ export class AuthorComponent implements OnInit {
     this.snackBar.open(message, 'Dismiss');
   }
 
+  searchAuthor(name: string) {
+    console.log("Searched author: " + name);
+    this.authorService.getAuthorsByName(name).then((value => {
+      this.authors = value;
+    }),
+      reason => {
+        console.log(reason);
+      });
+  }
+
+  showSearchBar() {
+    this.searchBarOpenned = true;
+  }
+
+  hideSearchBar() {
+    this.searchBarOpenned = false;
+  }
+
+  finishSearch() {
+    this.hideSearchBar();
+    this.authorService.getAuthors().then(
+      values => {
+        this.authors = values;
+      }
+    )
+  }
 }

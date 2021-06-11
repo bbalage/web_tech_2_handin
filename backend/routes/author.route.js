@@ -10,12 +10,12 @@ router.use(auth.checkIfAuthenticated, auth.convertErrorToUnauthorized);
 const AuthorModel = require('../model/author');
 
 router.get('/', function (req, res) {
-    AuthorModel.find((err, authors) => {
-        if (err) {
-            errorHandling.defaultErrorHandling(err, res);
-        }
-        res.json(authors);
-    });
+    const name = req.query.name;
+    if (name) {
+        findAuthorsByNameAndSendThemInResponse(name, res);
+        return;
+    }
+    findAllAuthorsAndSendThemInResponse(res);
 })
 
 router.get('/hello-world', function (req, res) {
@@ -33,5 +33,23 @@ router.post('/', function (req, res) {
         }
     });
 });
+
+function findAllAuthorsAndSendThemInResponse(res) {
+    AuthorModel.find((err, authors) => {
+        if (err) {
+            errorHandling.defaultErrorHandling(err, res);
+        }
+        res.json(authors);
+    });
+}
+
+function findAuthorsByNameAndSendThemInResponse(name, res) {
+    AuthorModel.find({ name: { $regex: name } }, (err, authors) => {
+        if (err) {
+            errorHandling.defaultErrorHandling(err, res);
+        }
+        res.json(authors);
+    });
+}
 
 module.exports = router

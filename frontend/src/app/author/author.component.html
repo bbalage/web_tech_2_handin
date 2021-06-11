@@ -4,7 +4,7 @@
         <span>Actions</span>
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item>
+        <button mat-menu-item (click)="showSearchBar()">
             <mat-icon>search</mat-icon>
             <span>Search</span>
         </button>
@@ -14,6 +14,9 @@
         </button>
     </mat-menu>
 </mat-toolbar>
+<app-author-search-bar *ngIf="searchBarOpenned" (searchedAuthor)="searchAuthor($event)"
+    (closedSearchBar)="finishSearch()">
+</app-author-search-bar>
 <table mat-table [dataSource]="authors" class="mat-elevation-z8">
     <ng-container matColumnDef="name">
         <th mat-header-cell *matHeaderCellDef> Name </th>
