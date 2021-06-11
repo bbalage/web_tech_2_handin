@@ -76,14 +76,12 @@ The application should be able to perform the following operations on the struct
 
 ### Book
 
-- [ ] List all books, with the name of the author(s) and number of reviews
+- [ ] List all books, with the number of reviews
 - [ ] Find book by title
-- [ ] Find book by author
 - [ ] Add new book
 - [ ] Modify existing book
 - [ ] Delete book
 - [ ] Add reviews to book
-- [ ] Add author for book
 
 ### Admin
 

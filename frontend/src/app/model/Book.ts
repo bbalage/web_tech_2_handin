@@ -7,7 +7,6 @@ export interface BookReceiveDto {
     copiesSold: number,
     description: string,
     genres: string[],
-    authors: string[],
     reviews: number
 }
 

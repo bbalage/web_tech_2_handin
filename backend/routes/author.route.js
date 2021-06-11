@@ -8,6 +8,7 @@ const errorHandling = require('../util/error-handling');
 router.use(auth.checkIfAuthenticated, auth.convertErrorToUnauthorized);
 
 const AuthorModel = require('../model/author');
+const BookModel = require('../model/book');
 
 router.get('/', function (req, res) {
     const _id = req.query._id;
@@ -21,10 +22,6 @@ router.get('/', function (req, res) {
         return;
     }
     findAllAuthorsAndSendThemInResponse(res);
-})
-
-router.get('/hello-world', function (req, res) {
-    res.send('Hello World!');
 })
 
 router.post('/', function (req, res) {
@@ -61,9 +58,15 @@ router.put('/add-book', async function (req, res) {
     const authorId = req.query.authorId;
 
     const author = await findAuthorById(authorId);
+    const book = await findBookById(bookId);
 
     if (!author) {
         res.status(404).json({ message: "No author by that id" });
+        return;
+    }
+
+    if (!book) {
+        res.status(404).json({ message: "No book by that id" });
         return;
     }
 
@@ -83,12 +86,17 @@ router.put('/add-book', async function (req, res) {
             else {
                 res.json(data);
             }
-        })
+        });
 })
 
 async function findAuthorById(_id) {
     author = await AuthorModel.findById(_id);
     return author;
+}
+
+async function findBookById(_id) {
+    book = await BookModel.findById(_id);
+    return book;
 }
 
 function findAuthorByIdAndSendInResponse(_id, res) {
