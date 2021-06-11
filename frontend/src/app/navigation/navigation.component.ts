@@ -24,8 +24,12 @@ export class NavigationComponent {
     private authService: AuthService
   ) { }
 
-  navigateToAuthorMenu(): void {
+  navigateToAuthor(): void {
     this.router.navigateByUrl("/author");
+  }
+
+  navigateToBook(): void {
+    this.router.navigateByUrl("/book");
   }
 
   logout() {

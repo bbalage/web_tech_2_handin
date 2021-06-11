@@ -3,8 +3,8 @@
     [mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
     <mat-toolbar>Menu</mat-toolbar>
     <mat-nav-list>
-      <a mat-list-item (click)="navigateToAuthorMenu()">Author</a>
-      <a mat-list-item href="#">Link 2</a>
+      <a mat-list-item (click)="navigateToAuthor()">Author</a>
+      <a mat-list-item (click)="navigateToBook()">Book</a>
       <a mat-list-item (click)="logout()">Logout</a>
     </mat-nav-list>
   </mat-sidenav>

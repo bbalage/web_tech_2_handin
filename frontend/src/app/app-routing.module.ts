@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddAuthorComponent } from './author/add-author/add-author.component';
 import { AuthorComponent } from './author/author.component';
 import { ModifyAuthorComponent } from './author/modify-author/modify-author.component';
+import { BookComponent } from './book/book.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: 'author/modify/:_id',
     component: ModifyAuthorComponent
+  },
+  {
+    path: 'book',
+    component: BookComponent
   }
 ];
 

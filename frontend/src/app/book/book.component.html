@@ -1,1 +1,69 @@
-<p>book works!</p>
+<mat-toolbar>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+        <span>Actions</span>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="showSearchBar()">
+            <mat-icon>search</mat-icon>
+            <span>Search</span>
+        </button>
+        <button mat-menu-item (click)="navigateToAddNewBook()">
+            <mat-icon>add</mat-icon>
+            <span>Add book</span>
+        </button>
+    </mat-menu>
+</mat-toolbar>
+<table mat-table [dataSource]="books" class="mat-elevation-z8">
+    <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef> Title </th>
+        <td mat-cell *matCellDef="let book"> {{book.title}} </td>
+    </ng-container>
+    <ng-container matColumnDef="dateOfPublish">
+        <th mat-header-cell *matHeaderCellDef> Date of Publish </th>
+        <td mat-cell *matCellDef="let book"> {{book.dateOfPublish}} </td>
+    </ng-container>
+    <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef> Price </th>
+        <td mat-cell *matCellDef="let book"> {{book.price}} </td>
+    </ng-container>
+    <ng-container matColumnDef="copiesCreated">
+        <th mat-header-cell *matHeaderCellDef> Copies created
+        <th>
+        <td mat-cell *matCellDef="let book"> {{book.copiesCreated}} </td>
+    </ng-container>
+    <ng-container matColumnDef="copiesSold">
+        <th mat-header-cell *matHeaderCellDef> Copies sold </th>
+        <td mat-cell *matCellDef="let book"> {{book.copiesSold}} </td>
+    </ng-container>
+    <ng-container matColumnDef="reviews">
+        <th mat-header-cell *matHeaderCellDef> Reviews </th>
+        <td mat-cell *matCellDef="let book"> {{book.reviews}} </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let book">
+            <button mat-icon-button [matMenuTriggerFor]="rowMenu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+                <span>More...</span>
+            </button>
+            <mat-menu #rowMenu="matMenu">
+                <button mat-menu-item (click)="navigateToModifyBook(book._id)">
+                    <mat-icon>edit</mat-icon>
+                    <span>Edit</span>
+                </button>
+                <button mat-menu-item (click)="actions(book._id)">
+                    <mat-icon>add</mat-icon>
+                    <span>Add books</span>
+                </button>
+                <button mat-menu-item (click)="actions(book._id)">
+                    <mat-icon>remove</mat-icon>
+                    <span>Remove book</span>
+                </button>
+            </mat-menu>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>
