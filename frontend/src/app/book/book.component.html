@@ -55,12 +55,16 @@
                     <span>Edit</span>
                 </button>
                 <button mat-menu-item (click)="actions(book._id)">
-                    <mat-icon>add</mat-icon>
+                    <mat-icon>add_comment</mat-icon>
                     <span>Add reviews</span>
                 </button>
                 <button mat-menu-item (click)="actions(book._id)">
                     <mat-icon>remove</mat-icon>
                     <span>Remove book</span>
+                </button>
+                <button mat-menu-item *ngIf="authorId" (click)="addToAuthor(book._id)">
+                    <mat-icon>person_add</mat-icon>
+                    <span>Add to author</span>
                 </button>
             </mat-menu>
         </td>

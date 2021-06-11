@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { AuthorReceiveDto } from '../model/Author';
 import { BookReceiveDto, BookSendDto } from '../model/Book';
 
 @Injectable({
@@ -15,6 +16,10 @@ export class BookService {
 
   modifyBook(book: BookSendDto) {
     return this.http.put<BookSendDto>('/api/book', book).toPromise();
+  }
+
+  addToAuthor(authorId: string, bookId: string) {
+    return this.http.put<AuthorReceiveDto>('/api/author/add-book', { authorId: authorId, bookId: bookId }).toPromise();
   }
 
   getBooks() {

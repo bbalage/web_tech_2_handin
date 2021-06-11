@@ -85,6 +85,10 @@ export class AuthorComponent implements OnInit {
     this.router.navigate(['author/modify', _id]);
   }
 
+  navigatoToAddBookToAuthor(_id: string) {
+    this.router.navigate([`book`], { queryParams: { authorId: _id } });
+  }
+
   //TODO: TEMPORARY!!! Remove when all row menu items are functional!!!
   actions(action: string) {
     console.log("Action is: " + action);

@@ -54,8 +54,8 @@ router.put('/', function (req, res) {
 });
 
 router.put('/add-book', async function (req, res) {
-    const bookId = req.query.bookId;
-    const authorId = req.query.authorId;
+    const bookId = req.body.bookId;
+    const authorId = req.body.authorId;
 
     const author = await findAuthorById(authorId);
     const book = await findBookById(bookId);

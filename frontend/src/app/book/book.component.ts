@@ -15,17 +15,22 @@ export class BookComponent implements OnInit {
   books: BookReceiveDto[] = [];
   displayedColumns: string[] = ['title', 'dateOfPublish', 'price', 'copiesCreated', 'copiesSold', 'reviews', 'actions'];
   searchBarOpenned: boolean = false;
+  authorId: string | undefined;
 
   constructor(
     private bookService: BookService,
     private router: Router,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar
-  ) { }
+  ) {
+    this.router.routeReuseStrategy.shouldReuseRoute = function () {
+      return false;
+    };
+  }
 
   async ngOnInit(): Promise<void> {
     this.books = await this.bookService.getBooks();
-    const queries: string[] = ['savedTitle', 'modifiedTitle'];
+    const queries: string[] = ['savedTitle', 'modifiedTitle', 'authorId'];
     this.route.queryParams.pipe(
       filter(params => {
         for (const query of queries) {
@@ -41,6 +46,9 @@ export class BookComponent implements OnInit {
       }
       if (params.modifiedTitle) {
         this.snackBarMessage(`Successfully modified book: ${params.modifiedTitle}`);
+      }
+      if (params.authorId) {
+        this.authorId = params.authorId;
       }
     })
   }
@@ -82,6 +90,20 @@ export class BookComponent implements OnInit {
 
   navigateToModifyBook(_id: string) {
     this.router.navigate(['book/modify', _id]);
+  }
+
+  addToAuthor(bookId: string) {
+    if (!this.authorId) {
+      throw Error("Something went wrong.");
+    }
+    this.bookService.addToAuthor(this.authorId, bookId).then(
+      data => {
+        this.snackBarMessage(`Successfully added book to ${data.name}.`);
+      },
+      reason => {
+        console.log(reason);
+      }
+    );
   }
 
   //TODO: TEMPORARY!!! Remove when all row menu items are functional!!!
