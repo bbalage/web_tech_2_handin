@@ -65,8 +65,8 @@ function findAuthorByIdAndSendInResponse(_id, res) {
     });
 }
 
-function findAllAuthorsAndSendThemInResponse(res) {
-    AuthorModel.find((err, authors) => {
+function findAuthorsByNameAndSendThemInResponse(name, res) {
+    AuthorModel.find({ name: { $regex: name } }, (err, authors) => {
         if (err) {
             errorHandling.defaultErrorHandling(err, res);
         }
@@ -74,8 +74,8 @@ function findAllAuthorsAndSendThemInResponse(res) {
     });
 }
 
-function findAuthorsByNameAndSendThemInResponse(name, res) {
-    AuthorModel.find({ name: { $regex: name } }, (err, authors) => {
+function findAllAuthorsAndSendThemInResponse(res) {
+    AuthorModel.find((err, authors) => {
         if (err) {
             errorHandling.defaultErrorHandling(err, res);
         }

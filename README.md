@@ -70,13 +70,13 @@ The application should be able to perform the following operations on the struct
 - [x] List all authors
 - [x] Find author by name
 - [x] Add new author
-- [ ] Modify existing author
+- [x] Modify existing author
 - [ ] Delete author
 - [ ] Add book for author
 
 ### Book
 
-- [ ] List all books, with the name of the author(s) and reviews
+- [ ] List all books, with the name of the author(s) and number of reviews
 - [ ] Find book by title
 - [ ] Find book by author
 - [ ] Add new book
