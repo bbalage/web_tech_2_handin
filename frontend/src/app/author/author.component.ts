@@ -14,7 +14,7 @@ import { AuthorService } from '../services/author.service';
 export class AuthorComponent implements OnInit {
 
   authors: AuthorReceiveDto[] = [];
-  displayedColumns: string[] = ['name', 'email', 'phoneNumber'];
+  displayedColumns: string[] = ['name', 'email', 'phoneNumber', 'actions'];
   searchBarOpenned: boolean = false;
 
   constructor(
@@ -26,7 +26,7 @@ export class AuthorComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.authors = await this.authorService.getAuthors();
-    const queries: string[] = ['savedName', 'updatedName'];
+    const queries: string[] = ['savedName', 'modifiedName'];
     this.route.queryParams.pipe(
       filter(params => {
         for (const query of queries) {
@@ -40,8 +40,8 @@ export class AuthorComponent implements OnInit {
       if (params.savedName) {
         this.snackBarMessage(`Successfully saved author: ${params.savedName}`);
       }
-      if (params.updatedName) {
-        this.snackBarMessage(`Successfully updated author: ${params.savedName}`);
+      if (params.modifiedName) {
+        this.snackBarMessage(`Successfully modified author: ${params.modifiedName}`);
       }
     })
   }
@@ -79,5 +79,14 @@ export class AuthorComponent implements OnInit {
         this.authors = values;
       }
     )
+  }
+
+  navigateToModifyAuthor(_id: string) {
+    this.router.navigate(['author/modify', _id]);
+  }
+
+  //TODO: TEMPORARY!!! Remove when all row menu items are functional!!!
+  actions(action: string) {
+    console.log("Action is: " + action);
   }
 }

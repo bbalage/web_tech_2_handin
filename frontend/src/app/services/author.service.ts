@@ -13,8 +13,16 @@ export class AuthorService {
     return this.http.post<AuthorSendDto>('/api/author', author).toPromise();
   }
 
+  modifyAuthor(author: AuthorSendDto) {
+    return this.http.put<AuthorSendDto>('/api/author', author).toPromise();
+  }
+
   getAuthors() {
     return this.http.get<AuthorReceiveDto[]>('/api/author').toPromise();
+  }
+
+  getAuthorById(_id: string) {
+    return this.http.get<AuthorReceiveDto>('/api/author', { params: { ['_id']: [_id] } }).toPromise();
   }
 
   getAuthorsByName(name: string) {

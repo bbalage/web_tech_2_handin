@@ -26,6 +26,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AddAuthorComponent } from './author/add-author/add-author.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AuthorSearchBarComponent } from './author/author-search-bar/author-search-bar.component';
+import { ModifyAuthorComponent } from './author/modify-author/modify-author.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AuthorSearchBarComponent } from './author/author-search-bar/author-sear
     AuthorComponent,
     HomeComponent,
     AddAuthorComponent,
-    AuthorSearchBarComponent
+    AuthorSearchBarComponent,
+    ModifyAuthorComponent
   ],
   imports: [
     HttpClientModule,
