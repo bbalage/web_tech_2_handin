@@ -93,8 +93,17 @@ export class AuthorComponent implements OnInit {
     this.router.navigate([`author/view-books`, _id]);
   }
 
-  //TODO: TEMPORARY!!! Remove when all row menu items are functional!!!
-  actions(action: string) {
-    console.log("Action is: " + action);
+  removeAuthor(_id: string) {
+    this.authorService.removeAuthor(_id).then(
+      async messageInterface => {
+        this.snackBarMessage(messageInterface.message);
+        this.authors = await this.authorService.getAuthors();
+      },
+      reason => {
+        if (reason.status == 400) {
+          this.snackBarMessage("Could not delete author. Author with books cannot be deleted.");
+        }
+      }
+    )
   }
 }

@@ -12,6 +12,23 @@ router.use(auth.checkIfAuthenticated, auth.convertErrorToUnauthorized);
 const AuthorModel = require('../model/author');
 const BookModel = require('../model/book');
 
+router.delete('/', async function (req, res) {
+    const _id = req.query._id;
+    const author = await findAuthorById(_id);
+    if (author.books.length != 0) {
+        res.status(400).json({ message: "Cannot remove author with books in the system." });
+        return;
+    }
+    AuthorModel.deleteOne({ _id: _id }, (err) => {
+        if (err) {
+            errorHandling.defaultErrorHandling(res);
+        }
+        else {
+            res.json({ message: "Successfully deleted: " + author.name });
+        }
+    })
+})
+
 router.delete('/book/:authorId', async function (req, res) {
     const authorId = req.params.authorId;
     const bookId = req.query.bookId;

@@ -3,12 +3,20 @@ import { Injectable } from '@angular/core';
 import { AuthorReceiveDto, AuthorSendDto } from '../model/Author';
 import { BookReceiveDto } from '../model/Book';
 
+interface MessageInterface {
+  message: string
+}
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthorService {
 
   constructor(private http: HttpClient) { }
+
+  removeAuthor(_id: string) {
+    return this.http.delete<MessageInterface>('api/author', { params: { ['_id']: [_id] } }).toPromise();
+  }
 
   removeBookFromAuthor(authorId: string, bookId: string) {
     return this.http.delete<AuthorReceiveDto>(
