@@ -1,0 +1,11 @@
+<div><strong>Title:</strong> {{book.title}}</div>
+<div><strong>Date of publish:</strong> {{book.dateOfPublish}}</div>
+<div><strong>Price:</strong> {{book.price}} HUF</div>
+<div><strong>Copies sold:</strong> {{book.copiesSold}}</div>
+<div><strong>Copies created:</strong> {{book.copiesCreated}}</div>
+<div><strong>Description:</strong> {{book.description}}</div>
+<div><strong>Number of reviews:</strong> {{book.reviews}}</div>
+<button mat-raised-button color="warn" (click)="sendRemovedBookFromAuthorEvent()">
+    <mat-icon>remove_circle</mat-icon>
+    <span>Remove book from author</span>
+</button>

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthorReceiveDto, AuthorSendDto } from '../model/Author';
+import { BookReceiveDto } from '../model/Book';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,11 @@ import { AuthorReceiveDto, AuthorSendDto } from '../model/Author';
 export class AuthorService {
 
   constructor(private http: HttpClient) { }
+
+  removeBookFromAuthor(authorId: string, bookId: string) {
+    return this.http.delete<AuthorReceiveDto>(
+      `api/author/book/${authorId}`, { params: { ['bookId']: [bookId] } }).toPromise();
+  }
 
   addAuthor(author: AuthorSendDto) {
     return this.http.post<AuthorSendDto>('/api/author', author).toPromise();
@@ -27,5 +33,9 @@ export class AuthorService {
 
   getAuthorsByName(name: string) {
     return this.http.get<AuthorReceiveDto[]>('/api/author', { params: { ['name']: [name] } }).toPromise();
+  }
+
+  getBooksOfAuthor(_id: string) {
+    return this.http.get<BookReceiveDto[]>('/api/author/get-books', { params: { ['_id']: [_id] } }).toPromise();
   }
 }

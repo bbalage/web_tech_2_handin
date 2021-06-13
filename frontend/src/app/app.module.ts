@@ -34,6 +34,9 @@ import { AddBookComponent } from './book/add-book/add-book.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { BookSearchBarComponent } from './book/book-search-bar/book-search-bar.component';
 import { ModifyBookComponent } from './book/modify-book/modify-book.component';
+import { BooksOfAuthorComponent } from './author/books-of-author/books-of-author.component';
+import { BookOfAuthorComponent } from './author/books-of-author/book-of-author/book-of-author.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -48,7 +51,9 @@ import { ModifyBookComponent } from './book/modify-book/modify-book.component';
     BookComponent,
     AddBookComponent,
     BookSearchBarComponent,
-    ModifyBookComponent
+    ModifyBookComponent,
+    BooksOfAuthorComponent,
+    BookOfAuthorComponent
   ],
   imports: [
     HttpClientModule,
@@ -71,6 +76,7 @@ import { ModifyBookComponent } from './book/modify-book/modify-book.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatGridListModule,
     FormsModule,
     ReactiveFormsModule
   ],

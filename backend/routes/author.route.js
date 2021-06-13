@@ -12,6 +12,31 @@ router.use(auth.checkIfAuthenticated, auth.convertErrorToUnauthorized);
 const AuthorModel = require('../model/author');
 const BookModel = require('../model/book');
 
+router.delete('/book/:authorId', async function (req, res) {
+    const authorId = req.params.authorId;
+    const bookId = req.query.bookId;
+    author = await AuthorModel.findById(authorId);
+    if (!author) {
+        res.status(400).send("No author by that id.");
+        return;
+    }
+    const index = author.books.indexOf(bookId);
+    author.books.splice(index, 1);
+
+    const searchParams = { _id: authorId };
+    const modifications = { books: author.books };
+    AuthorModel.findOneAndUpdate(
+        searchParams, modifications, { upsert: false, useFindAndModify: false, new: true },
+        (err, data) => {
+            if (err) {
+                errorHandling.defaultErrorHandling(err, res);
+            }
+            else {
+                res.json(data);
+            }
+        })
+});
+
 router.post('/', function (req, res) {
     newAuthor = new AuthorModel(req.body);
     newAuthor.save(function (err, data) {

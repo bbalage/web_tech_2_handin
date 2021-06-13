@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AddAuthorComponent } from './author/add-author/add-author.component';
 import { AuthorComponent } from './author/author.component';
+import { BooksOfAuthorComponent } from './author/books-of-author/books-of-author.component';
 import { ModifyAuthorComponent } from './author/modify-author/modify-author.component';
 import { AddBookComponent } from './book/add-book/add-book.component';
 import { BookComponent } from './book/book.component';
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: 'book/modify/:_id',
     component: ModifyBookComponent
+  },
+  {
+    path: 'author/view-books/:_id',
+    component: BooksOfAuthorComponent
   }
 ];
 

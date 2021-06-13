@@ -1,0 +1,5 @@
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile *ngFor="let book of books" style="border: 5px;">
+        <app-book-of-author [book]="book" (removedBook)="removeBookFromAuthor($event)"></app-book-of-author>
+    </mat-grid-tile>
+</mat-grid-list>
