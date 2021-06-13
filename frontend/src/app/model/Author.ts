@@ -9,5 +9,6 @@ export interface AuthorReceiveDto {
     _id: string,
     name: string,
     email: string,
-    phoneNumber: string
+    phoneNumber: string,
+    books: number
 }

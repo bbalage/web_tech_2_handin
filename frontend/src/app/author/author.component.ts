@@ -14,7 +14,7 @@ import { AuthorService } from '../services/author.service';
 export class AuthorComponent implements OnInit {
 
   authors: AuthorReceiveDto[] = [];
-  displayedColumns: string[] = ['name', 'email', 'phoneNumber', 'actions'];
+  displayedColumns: string[] = ['name', 'email', 'phoneNumber', 'books', 'actions'];
   searchBarOpenned: boolean = false;
 
   constructor(

@@ -21,7 +21,8 @@ export class ModifyAuthorComponent implements OnInit {
     _id: '',
     name: '',
     email: '',
-    phoneNumber: ''
+    phoneNumber: '',
+    books: 0
   };
 
   constructor(

@@ -10,20 +10,6 @@ router.use(auth.checkIfAuthenticated, auth.convertErrorToUnauthorized);
 const AuthorModel = require('../model/author');
 const BookModel = require('../model/book');
 
-router.get('/', function (req, res) {
-    const _id = req.query._id;
-    if (_id) {
-        findAuthorByIdAndSendInResponse(_id, res);
-        return;
-    }
-    const name = req.query.name;
-    if (name) {
-        findAuthorsByNameAndSendThemInResponse(name, res);
-        return;
-    }
-    findAllAuthorsAndSendThemInResponse(res);
-})
-
 router.post('/', function (req, res) {
     newAuthor = new AuthorModel(req.body);
     newAuthor.save(function (err, data) {
@@ -87,7 +73,54 @@ router.put('/add-book', async function (req, res) {
                 res.json(data);
             }
         });
-})
+});
+
+router.get('/', function (req, res) {
+    const _id = req.query._id;
+    if (_id) {
+        findAuthorByIdAndSendInResponse(_id, res);
+        return;
+    }
+    const name = req.query.name;
+    if (name) {
+        findAuthorsByNameAndSendThemInResponse(name, res);
+        return;
+    }
+    findAllAuthorsAndSendThemInResponse(res);
+});
+
+async function findAuthorByIdAndSendInResponse(_id, res) {
+    author = await AuthorModel.findById(_id).lean();
+    authorSendDto = convertAuthorToSendAuthorDto(author);
+    res.json(authorSendDto);
+}
+
+async function findAuthorsByNameAndSendThemInResponse(name, res) {
+    const authors = await BookModel.find({ name: { $regex: name } });
+    authorSendDtos = convertBooksToSendBookDtos(authors);
+    res.json(authorSendDtos);
+}
+
+async function findAllAuthorsAndSendThemInResponse(res) {
+    authors = await AuthorModel.find().lean();
+    authorSendDtos = convertAuthorsToSendAuthorDtos(authors);
+    res.json(authorSendDtos);
+}
+
+function convertAuthorsToSendAuthorDtos(authors) {
+    authorSendDtos = [];
+    for (const author of authors) {
+        const authorSendDto = convertAuthorToSendAuthorDto(author);
+        authorSendDtos.push(authorSendDto);
+    }
+    return authorSendDtos;
+}
+
+function convertAuthorToSendAuthorDto(author) {
+    const authorSendDto = author;
+    authorSendDto.books = author.books.length;
+    return authorSendDto;
+}
 
 async function findAuthorById(_id) {
     author = await AuthorModel.findById(_id);
@@ -97,33 +130,6 @@ async function findAuthorById(_id) {
 async function findBookById(_id) {
     book = await BookModel.findById(_id);
     return book;
-}
-
-function findAuthorByIdAndSendInResponse(_id, res) {
-    AuthorModel.findById(_id, (err, author) => {
-        if (err) {
-            errorHandling.defaultErrorHandling(err, res);
-        }
-        res.json(author);
-    });
-}
-
-function findAuthorsByNameAndSendThemInResponse(name, res) {
-    AuthorModel.find({ name: { $regex: name } }, (err, authors) => {
-        if (err) {
-            errorHandling.defaultErrorHandling(err, res);
-        }
-        res.json(authors);
-    });
-}
-
-function findAllAuthorsAndSendThemInResponse(res) {
-    AuthorModel.find((err, authors) => {
-        if (err) {
-            errorHandling.defaultErrorHandling(err, res);
-        }
-        res.json(authors);
-    });
 }
 
 module.exports = router
