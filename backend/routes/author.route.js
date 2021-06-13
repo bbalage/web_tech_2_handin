@@ -4,6 +4,8 @@ const router = express.Router();
 
 const auth = require('../util/auth');
 const errorHandling = require('../util/error-handling');
+const authorConverter = require('../util/authorConverter');
+const bookConverter = require('../util/bookConverter');
 
 router.use(auth.checkIfAuthenticated, auth.convertErrorToUnauthorized);
 
@@ -75,6 +77,23 @@ router.put('/add-book', async function (req, res) {
         });
 });
 
+router.get('/get-books', async function (req, res) {
+    const authorId = req.query._id;
+    if (!authorId) {
+        res.status(400).send("No author id provided.");
+        return;
+    }
+    author = await AuthorModel.findById(authorId);
+
+    books = [];
+    for (const bookId of author.books) {
+        const book = await BookModel.findById(bookId).lean();
+        books.push(book);
+    }
+    bookSendDtos = bookConverter.convertBooksToSendBookDtos(books);
+    res.json(bookSendDtos);
+});
+
 router.get('/', function (req, res) {
     const _id = req.query._id;
     if (_id) {
@@ -91,35 +110,20 @@ router.get('/', function (req, res) {
 
 async function findAuthorByIdAndSendInResponse(_id, res) {
     author = await AuthorModel.findById(_id).lean();
-    authorSendDto = convertAuthorToSendAuthorDto(author);
+    authorSendDto = authorConverter.convertAuthorToSendAuthorDto(author);
     res.json(authorSendDto);
 }
 
 async function findAuthorsByNameAndSendThemInResponse(name, res) {
-    const authors = await BookModel.find({ name: { $regex: name } });
-    authorSendDtos = convertBooksToSendBookDtos(authors);
+    const authors = await AuthorModel.find({ name: { $regex: name } });
+    authorSendDtos = authorConverter.convertAuthorsToSendAuthorDtos(authors);
     res.json(authorSendDtos);
 }
 
 async function findAllAuthorsAndSendThemInResponse(res) {
     authors = await AuthorModel.find().lean();
-    authorSendDtos = convertAuthorsToSendAuthorDtos(authors);
+    authorSendDtos = authorConverter.convertAuthorsToSendAuthorDtos(authors);
     res.json(authorSendDtos);
-}
-
-function convertAuthorsToSendAuthorDtos(authors) {
-    authorSendDtos = [];
-    for (const author of authors) {
-        const authorSendDto = convertAuthorToSendAuthorDto(author);
-        authorSendDtos.push(authorSendDto);
-    }
-    return authorSendDtos;
-}
-
-function convertAuthorToSendAuthorDto(author) {
-    const authorSendDto = author;
-    authorSendDto.books = author.books.length;
-    return authorSendDto;
 }
 
 async function findAuthorById(_id) {

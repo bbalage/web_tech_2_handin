@@ -4,6 +4,7 @@ const router = express.Router();
 
 const auth = require('../util/auth');
 const errorHandling = require('../util/error-handling');
+const bookConverter = require('../util/bookConverter');
 
 router.use(auth.checkIfAuthenticated, auth.convertErrorToUnauthorized);
 
@@ -54,40 +55,20 @@ router.get('/', function (req, res) {
 
 async function findBookByIdAndSendInResponse(_id, res) {
     book = await BookModel.findById(_id);
-    const bookSendDto = convertBookToSendBookDto(book);
+    const bookSendDto = bookConverter.convertBookToSendBookDto(book);
     res.json(bookSendDto);
 }
 
 async function findBooksByTitleAndSendThemInResponse(title, res) {
     const books = await BookModel.find({ title: { $regex: title } });
-    bookSendDtos = convertBooksToSendBookDtos(books);
+    bookSendDtos = bookConverter.convertBooksToSendBookDtos(books);
     res.json(bookSendDtos);
-}
-
-async function findBookById(_id) {
-    const book = await BookModel.findById(_id);
-    return book;
 }
 
 async function findAllBooksAndSendThemInResponse(res) {
     books = await BookModel.find().lean();
-    bookSendDtos = convertBooksToSendBookDtos(books);
+    bookSendDtos = bookConverter.convertBooksToSendBookDtos(books);
     res.json(bookSendDtos);
-}
-
-function convertBooksToSendBookDtos(books) {
-    bookSendDtos = [];
-    for (const book of books) {
-        const bookSendDto = convertBookToSendBookDto(book);
-        bookSendDtos.push(bookSendDto);
-    }
-    return bookSendDtos;
-}
-
-function convertBookToSendBookDto(book) {
-    const bookSendDto = book;
-    bookSendDto.reviews = book.reviews.length;
-    return bookSendDto;
 }
 
 module.exports = router;
