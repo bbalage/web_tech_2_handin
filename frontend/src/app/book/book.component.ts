@@ -14,7 +14,7 @@ import { BookService } from '../services/book.service';
 export class BookComponent implements OnInit {
 
   books: BookReceiveDto[] = [];
-  displayedColumns: string[] = ['title', 'dateOfPublish', 'price', 'copiesCreated', 'copiesSold', 'reviews', 'actions'];
+  displayedColumns: string[] = ['title', 'dateOfPublish', 'price', 'copiesCreated', 'copiesSold', 'authors', 'actions'];
   searchBarOpenned: boolean = false;
   authorId: string | undefined;
 
@@ -98,8 +98,9 @@ export class BookComponent implements OnInit {
       throw Error("Something went wrong.");
     }
     this.bookService.addToAuthor(this.authorId, bookId).then(
-      data => {
+      async data => {
         this.snackBarMessage(`Successfully added book to ${data.name}.`);
+        this.books = await this.bookService.getBooks();
       },
       reason => {
         console.log(reason);
@@ -118,10 +119,4 @@ export class BookComponent implements OnInit {
       }
     );
   }
-
-  //TODO: TEMPORARY!!! Remove when all row menu items are functional!!!
-  actions(action: string) {
-    console.log("Action is: " + action);
-  }
-
 }

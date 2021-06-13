@@ -53,12 +53,6 @@ Json structure for the structures are as follows:
   description: string,
   genres: [
     string, string...
-  ],
-  reviews: [
-    {
-      reviewer: string,
-      review: string
-    }
   ]
 }
 ```
@@ -77,12 +71,11 @@ The application should be able to perform the following operations on the struct
 
 ### Book
 
-- [x] List all books, with the number of reviews
+- [x] List all books, with the names of the authors
 - [x] Find book by title
 - [x] Add new book
 - [x] Modify existing book
 - [x] Delete book
-- [ ] Add reviews to book
 
 ### Admin
 

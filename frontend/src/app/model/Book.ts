@@ -7,7 +7,7 @@ export interface BookReceiveDto {
     copiesSold: number,
     description: string,
     genres: string[],
-    reviews: number
+    authors: string
 }
 
 export interface BookSendDto {

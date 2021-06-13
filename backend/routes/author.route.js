@@ -132,7 +132,7 @@ router.get('/get-books', async function (req, res) {
         const book = await BookModel.findById(bookId).lean();
         books.push(book);
     }
-    bookSendDtos = bookConverter.convertBooksToSendBookDtos(books);
+    bookSendDtos = await bookConverter.convertBooksToSendBookDtos(books);
     res.json(bookSendDtos);
 });
 

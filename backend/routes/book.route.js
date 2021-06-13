@@ -73,19 +73,19 @@ router.get('/', function (req, res) {
 
 async function findBookByIdAndSendInResponse(_id, res) {
     book = await BookModel.findById(_id);
-    const bookSendDto = bookConverter.convertBookToSendBookDto(book);
+    const bookSendDto = await bookConverter.convertBookToSendBookDto(book);
     res.json(bookSendDto);
 }
 
 async function findBooksByTitleAndSendThemInResponse(title, res) {
     const books = await BookModel.find({ title: { $regex: title } });
-    bookSendDtos = bookConverter.convertBooksToSendBookDtos(books);
+    bookSendDtos = await bookConverter.convertBooksToSendBookDtos(books);
     res.json(bookSendDtos);
 }
 
 async function findAllBooksAndSendThemInResponse(res) {
     books = await BookModel.find().lean();
-    bookSendDtos = bookConverter.convertBooksToSendBookDtos(books);
+    bookSendDtos = await bookConverter.convertBooksToSendBookDtos(books);
     res.json(bookSendDtos);
 }
 

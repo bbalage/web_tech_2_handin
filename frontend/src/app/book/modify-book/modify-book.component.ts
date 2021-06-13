@@ -30,7 +30,7 @@ export class ModifyBookComponent implements OnInit {
     copiesCreated: 0,
     copiesSold: 0,
     description: '',
-    reviews: 0,
+    authors: '',
     genres: ['']
   };
 
