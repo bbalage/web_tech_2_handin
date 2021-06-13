@@ -1,3 +1,4 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -102,6 +103,18 @@ export class BookComponent implements OnInit {
       },
       reason => {
         console.log(reason);
+      }
+    );
+  }
+
+  removeBook(_id: string) {
+    this.bookService.removeBook(_id).then(
+      async messageInterface => {
+        this.snackBarMessage(messageInterface.message);
+        this.books = await this.bookService.getBooks();
+      },
+      reason => {
+        this.snackBarMessage("Could not remove book. Cannot remove referenced book.");
       }
     );
   }

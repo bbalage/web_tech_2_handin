@@ -9,6 +9,24 @@ const bookConverter = require('../util/bookConverter');
 router.use(auth.checkIfAuthenticated, auth.convertErrorToUnauthorized);
 
 const BookModel = require('../model/book');
+const AuthorModel = require('../model/author');
+
+router.delete('/', function (req, res) {
+    const _id = req.query._id;
+    if (isBookReferenced(_id)) {
+        res.statusMessage = "Cannot remove referenced book.";
+        res.status(400).json({ message: "Cannot remove referenced book." });
+        return;
+    }
+    BookModel.deleteOne({ _id: _id }, function (err) {
+        if (err) {
+            errorHandling.defaultErrorHandling(res);
+        }
+        else {
+            res.status(200).json({ message: "Successfully deleted book." });
+        }
+    })
+})
 
 router.post('/', function (req, res) {
     const newBook = new BookModel(req.body);
@@ -69,6 +87,16 @@ async function findAllBooksAndSendThemInResponse(res) {
     books = await BookModel.find().lean();
     bookSendDtos = bookConverter.convertBooksToSendBookDtos(books);
     res.json(bookSendDtos);
+}
+
+async function isBookReferenced(_id) {
+    const authors = await AuthorModel.find();
+    for (const author of authors) {
+        if (author.books.includes(_id)) {
+            return true;
+        }
+    }
+    return false;
 }
 
 module.exports = router;

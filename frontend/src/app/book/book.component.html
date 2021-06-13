@@ -16,7 +16,9 @@
 </mat-toolbar>
 <app-book-search-bar *ngIf="searchBarOpenned" (searchedBook)="searchBook($event)" (closedSearchBar)="finishSearch()">
 </app-book-search-bar>
-<div *ngIf="authorId">Hint: Use the 'More' button to add book to author.</div>
+<div *ngIf="authorId">
+    <div>Hint: Use the 'More' button to add book to author.</div>
+</div>
 <table mat-table [dataSource]="books" class="mat-elevation-z8">
     <ng-container matColumnDef="title">
         <th mat-header-cell *matHeaderCellDef> Title </th>
@@ -59,7 +61,7 @@
                     <mat-icon>add_comment</mat-icon>
                     <span>Add reviews</span>
                 </button>
-                <button mat-menu-item (click)="actions(book._id)">
+                <button mat-menu-item (click)="removeBook(book._id)">
                     <mat-icon>remove</mat-icon>
                     <span>Remove book</span>
                 </button>

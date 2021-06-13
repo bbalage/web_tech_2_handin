@@ -71,9 +71,9 @@ The application should be able to perform the following operations on the struct
 - [x] Find author by name
 - [x] Add new author
 - [x] Modify existing author
-- [ ] Delete author
+- [x] Delete author
 - [x] Add book for author
-- [ ] Remove book from author
+- [x] Remove book from author
 
 ### Book
 
@@ -81,7 +81,7 @@ The application should be able to perform the following operations on the struct
 - [x] Find book by title
 - [x] Add new book
 - [x] Modify existing book
-- [ ] Delete book
+- [x] Delete book
 - [ ] Add reviews to book
 
 ### Admin
