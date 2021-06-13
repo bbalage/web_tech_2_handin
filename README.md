@@ -2,6 +2,9 @@
 
 This is the repository for the Web Technologies 2 university course.
 
+Name: Bolyki Balázs
+Neptun code: N5IF3V
+
 ## Usage manual
 
 Prequisits: MongoDB, Node, npm and Angular installed. MongoDB database needs to be listening on default port.
